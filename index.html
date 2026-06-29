@@ -6,49 +6,22 @@
     <title>OG VIP VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root {
-            --bg-color: #0b1120;
-            --card-bg: #1e293b;
-            --primary: #10b981; 
-            --primary-glow: rgba(16, 185, 129, 0.4);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-        
+        :root { --bg-color: #0b1120; --card-bg: #1e293b; --primary: #10b981; --primary-glow: rgba(16, 185, 129, 0.4); --text-main: #f8fafc; --text-muted: #94a3b8; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; user-select: none; }
         body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
 
-        header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            padding: 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); position: sticky; top: 0; z-index: 10;
-        }
+        header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); position: sticky; top: 0; z-index: 10; }
         header h1 { font-size: 20px; font-weight: 800; letter-spacing: 1px; color: var(--primary); text-shadow: 0 0 10px var(--primary-glow); }
 
-        .glass-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
-            padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            position: relative; overflow: hidden;
-        }
-        .glass-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(0,0,0,0) 70%); z-index: -1;
-        }
+        .glass-card { background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin-bottom: 20px; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); position: relative; overflow: hidden; }
+        .glass-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, rgba(0,0,0,0) 70%); z-index: -1; }
 
         .container { padding: 15px; }
         .card { background-color: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.03); }
         .card h2 { font-size: 17px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 5px; }
         
-        .btn {
-            background: var(--primary); color: #000; border: none; padding: 14px 20px;
-            border-radius: 12px; width: 100%; font-size: 15px; font-weight: bold;
-            margin-top: 15px; cursor: pointer; transition: all 0.2s;
-            display: flex; justify-content: center; align-items: center; gap: 8px;
-            box-shadow: 0 4px 15px var(--primary-glow);
-        }
+        .btn { background: var(--primary); color: #000; border: none; padding: 14px 20px; border-radius: 12px; width: 100%; font-size: 15px; font-weight: bold; margin-top: 15px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 4px 15px var(--primary-glow); }
         .btn:active { transform: scale(0.96); box-shadow: 0 2px 8px var(--primary-glow); }
         .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
         
@@ -58,10 +31,7 @@
         .progress-container { width: 100%; background-color: #334155; border-radius: 10px; margin-top: 15px; height: 8px; overflow: hidden; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); border-radius: 10px; transition: width 1s ease-in-out; }
 
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(30, 41, 59, 0.95); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-around; padding: 12px 0 20px 0; border-top: 1px solid rgba(255,255,255,0.05); z-index: 100;
-        }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: rgba(30, 41, 59, 0.95); backdrop-filter: blur(10px); display: flex; justify-content: space-around; padding: 12px 0 20px 0; border-top: 1px solid rgba(255,255,255,0.05); z-index: 100; }
         .nav-item { text-align: center; color: var(--text-muted); font-size: 11px; cursor: pointer; flex: 1; transition: all 0.3s; font-weight: 600; }
         .nav-item.active { color: var(--primary); transform: translateY(-3px); }
         .nav-icon { font-size: 22px; display: block; margin-bottom: 4px; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s; }
@@ -88,6 +58,7 @@
     <header><h1>OG VIP VPN</h1></header>
 
     <div class="container">
+        <!-- تب داشبورد -->
         <div id="tab-home" class="tab-content active">
             <div class="glass-card">
                 <p style="color: rgba(255,255,255,0.7); font-size: 13px;">موجودی کیف پول شما</p>
@@ -118,6 +89,7 @@
             </div>
         </div>
 
+        <!-- تب فروشگاه -->
         <div id="tab-shop" class="tab-content">
             <h3 style="margin-bottom: 15px; color: #fff; font-size: 16px;">انتخاب لوکیشن و کاربرد</h3>
             
@@ -150,42 +122,54 @@
             </div>
         </div>
 
+        <!-- تب درآمدزایی (آپدیت شده با لینک داخلی) -->
         <div id="tab-earn" class="tab-content">
             <div class="card" style="text-align:center;">
                 <h2>💎 سیستم کسب درآمد</h2>
-                <p>با دعوت دوستان، پورسانت نقدی بگیرید!</p>
+                <p style="font-size: 13px;">با دعوت دوستان، ۲۰٪ پورسانت نقدی بگیرید!</p>
                 <div style="font-size:50px; margin:20px 0; text-shadow: 0 0 20px rgba(255,255,255,0.2);">🤝</div>
-                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--primary); padding: 15px; border-radius: 12px;">
+                <div style="background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--primary); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
                     <p style="color: #fff; margin-bottom: 5px;">دعوت‌های موفق شما: <b><span id="ref-count">0</span> نفر</b></p>
-                    <p style="font-size: 12px; color: var(--primary);">دوستان خود را دعوت کنید و اشتراک رایگان بگیرید!</p>
+                    <p style="font-size: 12px; color: var(--primary);">به ازای هر خرید، ۵۰,۰۰۰ تومان مستقیم به کیف پولتان اضافه می‌شود.</p>
                 </div>
-                <button class="btn btn-outline" style="margin-top: 20px;" onclick="sendAffiliateRequest()">📋 دریافت لینک دعوت من</button>
+                
+                <button id="affiliate-btn" class="btn btn-outline" onclick="generateRefLink()">🔗 دریافت لینک دعوت من</button>
+                
+                <!-- این بخش بعد از کلیک روی دکمه بالا ظاهر می‌شود -->
+                <div id="affiliate-link-box" style="display: none;">
+                    <div class="copy-box" style="direction: ltr; margin-top: 0; padding: 10px;">
+                        <p style="font-size: 14px; color: var(--primary); width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0;" id="ref-link-text"></p>
+                    </div>
+                    <button class="btn" onclick="copyRefLink()">📋 کپی لینک</button>
+                </div>
             </div>
         </div>
 
+        <!-- تب دانلود نرم‌افزار -->
         <div id="tab-apps" class="tab-content">
             <h3 style="margin-bottom: 15px; color: #fff; font-size: 16px;">دریافت نرم‌افزار Wireguard</h3>
             <div class="card" style="display: flex; align-items: center; gap: 15px; padding: 15px;">
                 <div style="font-size: 30px;">🤖</div>
-                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه اندروید</h4><p style="font-size: 12px; margin: 0;">نصب مستقیم فایل APK</p></div>
+                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه اندروید</h4></div>
                 <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="sendAppDlRequest('android')">دانلود</button>
             </div>
             <div class="card" style="display: flex; align-items: center; gap: 15px; padding: 15px;">
                 <div style="font-size: 30px;">💻</div>
-                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه ویندوز</h4><p style="font-size: 12px; margin: 0;">مخصوص کامپیوتر و لپ‌تاپ</p></div>
+                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه ویندوز</h4></div>
                 <button class="btn" style="width: auto; padding: 8px 15px; margin: 0;" onclick="sendAppDlRequest('windows')">دانلود</button>
             </div>
             <div class="card" style="display: flex; align-items: center; gap: 15px; padding: 15px;">
                 <div style="font-size: 30px;">🍏</div>
-                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه آیفون (iOS)</h4><p style="font-size: 12px; margin: 0;">دانلود از اپ استور رسمی</p></div>
+                <div style="flex: 1;"><h4 style="color: #fff; margin-bottom: 4px;">نسخه آیفون</h4></div>
                 <button class="btn btn-outline" style="width: auto; padding: 8px 15px; margin: 0;" onclick="window.open('https://apps.apple.com/us/app/amneziawg/id6478942365', '_blank')">App Store</button>
             </div>
         </div>
     </div>
 
+    <!-- مودال شارژ (پاپ‌آپ راهنمای چت اضافه شد) -->
     <div id="chargeModal" class="modal-overlay" onclick="closeChargeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <div style="text-align: center; margin-bottom: 15px;"><span style="font-size: 30px;">💳</span><h3 style="color: #fff; margin-top: 10px;">افزایش موجودی (کارت به کارت)</h3><p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">مبلغ مورد نظر را به کارت زیر واریز کنید.</p></div>
+            <div style="text-align: center; margin-bottom: 15px;"><span style="font-size: 30px;">💳</span><h3 style="color: #fff; margin-top: 10px;">افزایش موجودی</h3></div>
             <div class="copy-box">
                 <div style="text-align: right;"><p style="font-size: 12px; color: var(--text-muted);">به نام علیرضا عباسی</p><p style="font-size: 18px; color: #fff; letter-spacing: 2px; font-family: monospace; margin-top: 5px;">5022-2915-2023-6017</p></div>
                 <button class="btn btn-outline" style="width: auto; padding: 8px; margin: 0;" onclick="copyCard()">کپی</button>
@@ -209,12 +193,14 @@
         try { tg = window.Telegram.WebApp; tg.expand(); tg.setHeaderColor('#0f172a'); tg.ready(); } catch(e) {}
         function vibrate() { try { if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); } catch(e) {} }
 
+        // --- استخراج اطلاعات از لینک ---
         const urlParams = new URLSearchParams(window.location.search);
         let userBalance = parseInt(urlParams.get('bal') || '0');
         const conf = urlParams.get('conf') || 'ندارد';
         const days = urlParams.get('days') || '0';
         const pct = urlParams.get('pct') || '0';
         const botName = urlParams.get('bot') || 'OG_VIP_Bot'; 
+        const uid = urlParams.get('uid') || '0'; // آیدی کاربر برای سیستم دعوت
         const PLAN_PRICE = 250000; 
 
         document.getElementById('user-balance').innerText = userBalance.toLocaleString('fa-IR');
@@ -228,7 +214,33 @@
             setTimeout(() => { document.getElementById('progress-fill').style.width = pct + '%'; }, 300);
         }
 
-        // --- سیستم هوشمند خرید مینی‌آپ ---
+        // --- تابع قطعی برای کپی کردن متن تو محیط وب‌اپ تلگرام ---
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.top = "0"; textArea.style.left = "0"; textArea.style.position = "fixed";
+            document.body.appendChild(textArea);
+            textArea.focus(); textArea.select();
+            try { document.execCommand('copy'); } catch (err) {}
+            document.body.removeChild(textArea);
+        }
+
+        // --- تولید و کپی لینک دعوت داخل وب‌اپ ---
+        function generateRefLink() {
+            vibrate();
+            const link = `https://t.me/${botName}?start=ref_${uid}`;
+            document.getElementById('ref-link-text').innerText = link;
+            document.getElementById('affiliate-btn').style.display = 'none';
+            document.getElementById('affiliate-link-box').style.display = 'block';
+        }
+
+        function copyRefLink() {
+            vibrate();
+            fallbackCopyTextToClipboard(document.getElementById('ref-link-text').innerText);
+            showToast("لینک دعوت کپی شد! ✅");
+        }
+
+        // --- پردازش هوشمند خرید ---
         function processBuy(serverType) {
             vibrate();
             if (serverType === 'turkey') {
@@ -243,9 +255,16 @@
         }
 
         function sendDownloadRequest() { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=download`); }
-        function sendAffiliateRequest() { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=affiliate`); }
         function sendAppDlRequest(os) { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=app_${os}`); }
-        function sendReceiptToBot() { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=charge`); }
+        
+        // --- انتقال هوشمند برای شارژ به ربات ---
+        function sendReceiptToBot() {
+            vibrate();
+            // اول به کاربر پیام می‌دیم، وقتی خوند و OK رو زد می‌بریمش تو چت!
+            tg.showAlert("✅ در حال انتقال به چت ربات...\n\nلطفاً پس از انتقال، ابتدا «مبلغ واریزی» را تایپ کنید و سپس «عکس رسید» خود را بفرستید.", function() {
+                tg.openTelegramLink(`https://t.me/${botName}?start=charge`);
+            });
+        }
 
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -255,7 +274,12 @@
 
         function openChargeModal() { vibrate(); document.getElementById('chargeModal').classList.add('show'); }
         function closeChargeModal(event) { if (event.target.id === 'chargeModal') document.getElementById('chargeModal').classList.remove('show'); }
-        function copyCard() { vibrate(); navigator.clipboard.writeText("5022291520236017"); showToast("شماره کارت کپی شد ✅"); }
+        
+        function copyCard() { 
+            vibrate(); 
+            fallbackCopyTextToClipboard("5022291520236017"); 
+            showToast("شماره کارت کپی شد ✅"); 
+        }
         function showToast(msg) {
             var toast = document.getElementById("toast"); toast.innerText = msg; toast.className = "show";
             setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
