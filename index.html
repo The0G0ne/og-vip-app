@@ -122,7 +122,7 @@
             </div>
         </div>
 
-        <!-- تب درآمدزایی (آپدیت شده با لینک داخلی) -->
+        <!-- تب درآمدزایی -->
         <div id="tab-earn" class="tab-content">
             <div class="card" style="text-align:center;">
                 <h2>💎 سیستم کسب درآمد</h2>
@@ -135,7 +135,6 @@
                 
                 <button id="affiliate-btn" class="btn btn-outline" onclick="generateRefLink()">🔗 دریافت لینک دعوت من</button>
                 
-                <!-- این بخش بعد از کلیک روی دکمه بالا ظاهر می‌شود -->
                 <div id="affiliate-link-box" style="display: none;">
                     <div class="copy-box" style="direction: ltr; margin-top: 0; padding: 10px;">
                         <p style="font-size: 14px; color: var(--primary); width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0;" id="ref-link-text"></p>
@@ -166,7 +165,7 @@
         </div>
     </div>
 
-    <!-- مودال شارژ (پاپ‌آپ راهنمای چت اضافه شد) -->
+    <!-- مودال شارژ -->
     <div id="chargeModal" class="modal-overlay" onclick="closeChargeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div style="text-align: center; margin-bottom: 15px;"><span style="font-size: 30px;">💳</span><h3 style="color: #fff; margin-top: 10px;">افزایش موجودی</h3></div>
@@ -179,28 +178,21 @@
         </div>
     </div>
 
-    <div id="toast"></div>
-
-    <nav class="bottom-nav">
-        <div class="nav-item active" onclick="switchTab('tab-home', this)"><span class="nav-icon">🏠</span> داشبورد</div>
-        <div class="nav-item" onclick="switchTab('tab-shop', this)"><span class="nav-icon">🛒</span> فروشگاه</div>
-        <div class="nav-item" onclick="switchTab('tab-earn', this)"><span class="nav-icon">💎</span> درآمدزایی</div>
-        <div class="nav-item" onclick="switchTab('tab-apps', this)"><span class="nav-icon">📱</span> نرم‌افزارها</div>
-    </nav>
-
     <script>
         let tg = null;
         try { tg = window.Telegram.WebApp; tg.expand(); tg.setHeaderColor('#0f172a'); tg.ready(); } catch(e) {}
-        function vibrate() { try { if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); } catch(e) {} }
 
-        // --- استخراج اطلاعات از لینک ---
+        function vibrate() {
+            try { if(tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('light'); } catch(e) {}
+        }
+
         const urlParams = new URLSearchParams(window.location.search);
         let userBalance = parseInt(urlParams.get('bal') || '0');
         const conf = urlParams.get('conf') || 'ندارد';
         const days = urlParams.get('days') || '0';
         const pct = urlParams.get('pct') || '0';
-        const botName = urlParams.get('bot') || 'OG_VIP_Bot'; 
-        const uid = urlParams.get('uid') || '0'; // آیدی کاربر برای سیستم دعوت
+        const botName = urlParams.get('bot') || 'OG_VIP_Bot';
+        const uid = urlParams.get('uid') || '0';
         const PLAN_PRICE = 250000; 
 
         document.getElementById('user-balance').innerText = userBalance.toLocaleString('fa-IR');
@@ -214,7 +206,6 @@
             setTimeout(() => { document.getElementById('progress-fill').style.width = pct + '%'; }, 300);
         }
 
-        // --- تابع قطعی برای کپی کردن متن تو محیط وب‌اپ تلگرام ---
         function fallbackCopyTextToClipboard(text) {
             var textArea = document.createElement("textarea");
             textArea.value = text;
@@ -225,7 +216,6 @@
             document.body.removeChild(textArea);
         }
 
-        // --- تولید و کپی لینک دعوت داخل وب‌اپ ---
         function generateRefLink() {
             vibrate();
             const link = `https://t.me/${botName}?start=ref_${uid}`;
@@ -240,7 +230,6 @@
             showToast("لینک دعوت کپی شد! ✅");
         }
 
-        // --- پردازش هوشمند خرید ---
         function processBuy(serverType) {
             vibrate();
             if (serverType === 'turkey') {
@@ -256,12 +245,19 @@
 
         function sendDownloadRequest() { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=download`); }
         function sendAppDlRequest(os) { vibrate(); tg.openTelegramLink(`https://t.me/${botName}?start=app_${os}`); }
-        
-        // --- انتقال هوشمند برای شارژ به ربات ---
+
+        // آپدیت متن پیام ارسال رسید با توضیحات دقیق و قدم‌به‌قدم برای مبتدی‌ها
         function sendReceiptToBot() {
             vibrate();
-            // اول به کاربر پیام می‌دیم، وقتی خوند و OK رو زد می‌بریمش تو چت!
-            tg.showAlert("✅ در حال انتقال به چت ربات...\n\nلطفاً پس از انتقال، ابتدا «مبلغ واریزی» را تایپ کنید و سپس «عکس رسید» خود را بفرستید.", function() {
+            const msg = 
+                "⚠️ راهنمای ثبت فیش واریزی (حتماً بخوانید):\n\n" +
+                "۱. با زدن دکمه OK پایین همین کادر، به چت ربات منتقل می‌شوید.\n" +
+                "(اگر به صورت خودکار منتقل نشدید، لطفاً علامت ضربدر ❌ بالای صفحه را بزنید تا این مینی‌اپلیکیشن بسته شود.)\n\n" +
+                "۲. داخل چت ربات، ربات از شما مبلغ را می‌خواهد. اول «مبلغ واریزی» را به عدد تایپ کنید و سپس «عکس رسید» را بفرستید.\n\n" +
+                "۳. منتظر بمانید تا مدیریت، رسید شما را تایید کند.\n\n" +
+                "۴. به محض دریافت پیامِ «شارژ تایید شد»، دوباره وارد همین اپلیکیشن شوید و با موجودی جدیدتان خرید را انجام دهید!";
+
+            tg.showAlert(msg, function() {
                 tg.openTelegramLink(`https://t.me/${botName}?start=charge`);
             });
         }
